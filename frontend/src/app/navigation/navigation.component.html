@@ -1,0 +1,46 @@
+<mat-toolbar  class="header-area header-sticky" >
+
+      <!-- ***** Header Area Start ***** -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="/" class="logo">
+                        <img src="./assets/assets/images/logo.png" alt="">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+
+
+                   
+  
+                             <!-- ***** Menu Start ***** -->
+                            <ul *ngIf="authService.loggedin()" class="nav">
+                                <li><a (click)="home()">Home</a></li>
+                                <li><a (click)="addPost()" >Add Post</a></li>
+
+                                <li><a (click)="logout()" >LogOut</a></li>
+                              
+
+                                <li ><a (click)="details()"  > {{showPrenom}}  <img src="{{showAvatar}}" alt=""></a></li>
+                            </ul>   
+                            <a *ngIf="authService.loggedin()" class='menu-trigger'>
+                                <span>Menu</span>
+                            </a>
+                            <!-- ***** Menu End ***** -->
+
+                            
+                       
+                   
+             
+
+                
+                </nav>
+            </div>
+        </div>
+    </div>
+
+  <!-- ***** Header Area End ***** -->
+
+</mat-toolbar>

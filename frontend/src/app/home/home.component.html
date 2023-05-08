@@ -1,0 +1,170 @@
+
+<!-- ***** Affichage des Posts ***** -->
+<div class="container"  >
+
+
+
+
+  <div class="row">
+     
+
+    
+
+      <div class="page-content">
+
+
+        <form #Filterform="ngForm" (ngSubmit)="Filtrer(Filterform)">
+                        
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Filtrer par Username et n'oubliez pas les # pour #Tags... "  name="filter" aria-label="Filtrer par Username ou Tags..."  ngModel>
+            <button class="btn btn-outline-secondary" type="submit" >Rechercher</button>
+          </div>
+          </form>
+        
+
+          <form #sortform="ngForm" (ngSubmit)="sort(sortform)">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <button class="btn btn-outline-secondary" type="submit" >Trier</button>
+            </div>
+
+            <select class="form-control"  name="sortoptions"  ngModel>
+              <option value="" selected disabled hidden>Selectionner un Filtre... </option>
+              <option value="1">Most Recent</option>
+              <option value="2">Most Liked</option>
+              <option value="3">Identifiants : A -- Z</option>
+            </select>
+          </div>
+        </form>
+
+ 
+
+    
+        <div class="card" *ngFor="let item of AllTheData | paginate: { itemsPerPage: 2, currentPage: p } ">
+         
+         
+            <!-- ***** Live Stream Start ***** -->
+          <div class="live-stream">
+            
+            <div class="col-lg-12">
+              <div class="heading-section">
+                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="item">
+                  <div class="thumb">
+                    <img src="{{item.images.url}}" alt="{{item.images.title}}">
+                    <div class="hover-effect">
+                      <div class="content">
+                        <div class="live">
+                          <a href="#"> H: {{item.hour}} D: {{item.date}}</a>
+                          
+                        </div>
+                       
+                    
+                        <ul>
+                          
+                          <li>
+
+
+                            
+                            <form #likeform="ngForm" (ngSubmit)="like(likeform)">
+                            <input type="hidden" class="form-control" name="postId" ngModel="{{item._id}}" />
+                            <button ><i class="fa fa-thumbs-up" aria-hidden="true" name="likes" ngModel="{{item.likes}}" ></i> 
+
+                              {{item.likes}}</button>
+                          </form>
+
+
+
+                          </li>
+
+                          <li *ngFor="let hashtag of item.hashtags"><a href="#"><i class="fa fa-tags" aria-hidden="true"></i> {{hashtag}} </a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="down-content">
+                    <div class="avatar">
+                      <img src="{{item.creator.avatar}}" alt="" style="max-width: 46px; border-radius: 50%; float: left;">
+                    </div>
+                    <span><i class="fa fa-check"></i> {{item.creator.identifiant}}</span>
+                    <h4>{{item.body}}</h4>
+                  </div> 
+
+
+                      <!-- ***** Les Commentaires***** -->
+                  <div class="col-lg-12">
+                    <div class="top-streamers">
+                      <div class="heading-section">
+                        <h4><em>ALL</em> Comments</h4>
+                      </div> 
+                      <form #myform="ngForm" (ngSubmit)="comment(myform)">
+                        
+                      <div class="input-group mb-3">
+                        <input type="hidden" class="form-control" name="postId" ngModel="{{item._id}}" />
+                        <input type="text" class="form-control" placeholder="Ajoutez Votre Commentaire..."  name="comment" aria-label="Ajoutez Votre Commentaire"  ngModel>
+                        <button class="btn btn-outline-secondary" type="submit" >Commenter</button>
+                      </div>
+                      </form>
+                    </div>
+
+
+                      <div class="main-button" (click)="allComments()">
+                       <h3>Load More Comments </h3> 
+                      </div>
+
+                      
+                      <!-- ***** All Comments Start ***** -->
+                    <div class="gaming-library" *ngIf="comments">
+                      <div class="col-lg-12">
+                     
+                        <div class="item" *ngFor="let commentaire of item.comments">
+                          <ul >
+                            <li><img src="{{commentaire.commentedByAvatar}}" alt="" class="templatemo-item"> </li>
+                            <li><span><i class="fa fa-check"></i> {{commentaire.commentedByUsername }}</span> </li>
+                            <li><h4>{{commentaire.text}}</h4><span>H: {{commentaire.hour}} D: {{commentaire.date}}</span></li>
+
+                          </ul>
+                        </div>
+                     
+                      </div>
+                    </div>
+                    <!-- ***** All Comments End ***** -->
+
+
+                  
+                  </div>
+
+                </div>
+           
+               
+                
+           
+      
+          
+          
+        
+            
+              
+            </div>
+          </div>
+          <!-- ***** Live Stream End ***** -->
+
+          </div>
+
+          
+
+
+       
+    </div>
+    <pagination-controls class="pagination justify-content-center" (pageChange)="p = $event"></pagination-controls>
+
+
+  </div>
+
+
+       
+</div>
